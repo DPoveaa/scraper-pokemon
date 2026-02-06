@@ -6,7 +6,7 @@ import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 
 def main():
     print("="*30)
@@ -22,7 +22,7 @@ def main():
         try:
             name = input("\nNome do Pokemon: ").strip().lower().replace(" ", "")
         except KeyboardInterrupt:
-            print("\nOperacao cancelada pelo usuario.")
+            print("\nCancelado.")
             break
 
         if name in ['sair', 'exit']:
@@ -32,8 +32,8 @@ def main():
         if not name:
             continue
 
-        print(f"Iniciando busca por: {name}")
-        print("Abrindo navegador...")
+        print(f"Buscando: {name}")
+        print("Abrindo navegador.")
 
         driver = None
         try:
@@ -54,7 +54,7 @@ def main():
             except TimeoutException:
                 pass 
 
-            print("Carregando dados...")
+            print("Esperando dados aparecerem.")
             try:
                 wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".pokedex-pokemon-pagination-title")))
                 wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".pokemon-ability-info.active")))
@@ -288,7 +288,7 @@ def main():
             print(f"Erro inesperado: {e}")
         finally:
             if driver:
-                print("Fechando navegador...")
+                print("Fechando navegador.")
                 try:
                     driver.quit()
                 except: pass
